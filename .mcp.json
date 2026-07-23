@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest", "--isolated", "--no-sandbox"]
+    },
+    "shadcn": {
+      "command": "sh",
+      "args": ["-c", "cd /workspace/frontend && exec npx -y shadcn@latest mcp"]
+    }
+  }
+}

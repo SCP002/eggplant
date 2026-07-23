@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Eggplant</string>
+    <string name="title_activity_main">Eggplant</string>
+    <string name="package_name">com.eggplant.app</string>
+    <string name="custom_url_scheme">com.eggplant.app</string>
+    <string name="notification_channel_messages_name">Сообщения</string>
+    <string name="notification_channel_messages_description">Уведомления о сообщениях</string>
+    <string name="notification_channel_calls_name">Звонки</string>
+    <string name="notification_channel_calls_description">Уведомления о входящих звонках</string>
+    <string name="notification_new_message_title">Eggplant</string>
+    <string name="notification_new_message_text">Получено новое сообщение</string>
+    <string name="notification_invitation_title">Приглашение в комнату</string>
+    <string name="notification_invitation_invited">%1$s приглашает вас в %2$s</string>
+    <string name="notification_attachment_count">Вложений: %1$d</string>
+    <string name="notification_incoming_call_title">Входящий звонок</string>
+    <string name="notification_incoming_call_text">Входящий голосовой звонок</string>
+    <string name="notification_incoming_call_from">Звонит %1$s</string>
+    <string name="dialog_battery_title">Работа в фоновом режиме?</string>
+    <string name="dialog_battery_message">Разрешить игнорировать оптимизацию батареи, чтобы уведомления продолжали приходить?</string>
+    <string name="dialog_autostart_title">Запуск после перезагрузки?</string>
+    <string name="dialog_autostart_message">Разрешить автоматический запуск после перезагрузки устройства?</string>
+    <string name="dialog_open_settings">Открыть настройки</string>
+    <string name="dialog_not_now">Не сейчас</string>
+</resources>

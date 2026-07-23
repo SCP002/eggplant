@@ -1,0 +1,1 @@
+ALTER TABLE "file_attachments" ADD COLUMN "has_preview" boolean DEFAULT false NOT NULL;

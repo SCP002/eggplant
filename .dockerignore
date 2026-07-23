@@ -1,0 +1,10 @@
+node_modules
+frontend/node_modules
+frontend/electron/node_modules
+frontend/dist
+.git
+.env
+uploads
+*.md
+frontend/electron
+frontend/android

@@ -1,0 +1,145 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - .:/workspace
+      - frontend_node_modules:/workspace/frontend/node_modules
+      - root_node_modules:/workspace/node_modules
+      - android_sdk:/opt/android-sdk
+      - gradle_cache_dev:/root/.gradle
+      - kotlin_ext:/root/.vscode-server/data/User/globalStorage/jetbrains.kotlin-server
+      - npm_cache:/root/.npm
+      - claude_config:/root/.claude
+      # Fix periodic wayland socket issue on container start
+      - type: tmpfs
+        target: /tmp
+    working_dir: /workspace
+    command: sleep infinity
+    depends_on:
+      - backend
+      - frontend
+    environment:
+      - ENV=dev
+      - CHOKIDAR_USEPOLLING=true
+      - CLAUDE_CONFIG_DIR=/root/.claude
+      # /tmp is mounted as noexec tmpfs, which breaks JVM native libs
+      - JAVA_TOOL_OPTIONS=-Djava.io.tmpdir=/var/tmp
+    env_file:
+      - .env
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.dev
+    volumes:
+      - ./backend:/app/backend
+      - ./shared:/app/shared
+      - uploads:/opt/uploads
+      - backend_node_modules:/app/node_modules
+    environment:
+      - ENV=dev
+      - DATABASE_URL=${DATABASE_URL}
+      - UPLOADS_DIR=/opt/uploads
+      - CHOKIDAR_USEPOLLING=true
+    env_file:
+      - .env
+    ports:
+      - '127.0.0.1:8001:8001'
+      - '127.0.0.1:8000:8000'
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    env_file:
+      - .env
+    ports:
+      - '127.0.0.1:3000:3000'
+    stdin_open: true
+    tty: true
+
+  db:
+    image: postgres:17
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  livekit:
+    image: livekit/livekit-server
+    command: --config /etc/livekit.dev.yml
+    environment:
+      - "LIVEKIT_KEYS=${LIVEKIT_API_KEY}: ${LIVEKIT_API_SECRET}"
+    volumes:
+      - ./livekit.dev.yml:/etc/livekit.dev.yml:ro
+    ports:
+      - '127.0.0.1:7880:7880'
+      - '127.0.0.1:7881:7881'
+      - '50000-50099:50000-50099/udp'
+
+  capacitor-build:
+    profiles:
+      - build
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.capacitor
+    environment:
+      - PROD_DOMAIN=${PROD_DOMAIN:-localhost}
+    volumes:
+      - .:/workspace
+      - frontend_node_modules:/workspace/frontend/node_modules
+      - gradle_cache_build:/root/.gradle
+      - android_sdk:/opt/android-sdk
+      - npm_cache:/root/.npm
+    working_dir: /workspace/frontend
+    command: >
+      sh -c "
+        bash /workspace/.devcontainer/android-sdk.sh &&
+        npm install &&
+        npx capacitor-assets generate --android &&
+        npx cap sync android &&
+        rm -rf android/app/src/main/assets/public/downloads &&
+        cd android && ./gradlew assembleDebug
+      "
+
+  electron-build:
+    profiles:
+      - build
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.electron
+    environment:
+      - PROD_DOMAIN=${PROD_DOMAIN:-localhost}
+    volumes:
+      - .:/workspace
+      - frontend_node_modules:/workspace/frontend/node_modules
+      - electron_cache:/root/.cache/electron
+    working_dir: /workspace/frontend/electron
+    command: sh -c "npm install && npm run pack"
+
+volumes:
+  postgres_data:
+  uploads:
+  backend_node_modules:
+  frontend_node_modules:
+  root_node_modules:
+  electron_cache:
+  gradle_cache_dev:
+  kotlin_ext:
+  gradle_cache_build:
+  android_sdk:
+  npm_cache:
+  claude_config:

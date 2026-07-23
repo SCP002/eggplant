@@ -1,0 +1,7 @@
+node_modules
+electron
+android
+dist
+build
+.husky
+coverage

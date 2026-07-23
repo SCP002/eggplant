@@ -1,0 +1,28 @@
+{
+  "name": "eggplant",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "shared",
+    "backend"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev -w backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "typecheck": "npm run typecheck -w shared && npm run typecheck -w backend"
+  },
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
+    "prettier": "^3.8.4"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "esbuild@0.18.20": true,
+    "esbuild@0.25.12": true,
+    "sharp@0.35.3": true,
+    "@fastify/websocket@11.3.0": true,
+    "argon2@0.45.1": true,
+    "@ffmpeg-installer/linux-x64@4.1.0": true,
+    "@ffmpeg-installer/linux-arm64@4.1.4": true
+  }
+}

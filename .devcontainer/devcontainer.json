@@ -1,0 +1,57 @@
+{
+  "name": "Eggplant",
+  "dockerComposeFile": "../compose.dev.yml",
+  "service": "dev",
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+  "postCreateCommand": "/workspace/.devcontainer/android-sdk.sh",
+  "forwardPorts": [3000, 8000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Frontend",
+      "onAutoForward": "openBrowser"
+    },
+    "8000": {
+      "label": "Backend",
+      "onAutoForward": "notify"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bradlc.vscode-tailwindcss",
+        "cweijan.vscode-database-client2",
+        "dbaeumer.vscode-eslint",
+        "ecmel.vscode-html-css",
+        "esbenp.prettier-vscode",
+        "fanaticpythoner.better-todo-tree",
+        "anthropic.claude-code",
+        "ms-azuretools.vscode-docker",
+        "ms-playwright.playwright",
+        "ms-vscode.live-server",
+        "webnative.webnative",
+        "jetbrains.kotlin-server",
+        "rnoro.vscode-ktlint-formatter"
+      ],
+      "settings": {
+        "dev.containers.mountWaylandSocket": false,
+        "eslint.workingDirectories": ["/workspace/frontend"],
+        "js/ts.tsdk": "/workspace/frontend/node_modules/typescript/lib",
+        "intellij.projects": [
+          {
+            "type": "gradle",
+            "path": "file:///workspace/frontend/android"
+          }
+        ],
+        "[kotlin]": {
+          "editor.defaultFormatter": "rnoro.vscode-ktlint-formatter"
+        }
+      }
+    }
+  },
+  "remoteUser": "root",
+  "remoteEnv": {
+    "ANDROID_HOME": "/opt/android-sdk",
+    "JAVA_HOME": "/usr/lib/jvm/temurin-21-jdk-amd64"
+  }
+}

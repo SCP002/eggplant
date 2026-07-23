@@ -1,0 +1,29 @@
+FROM node:24-slim
+
+WORKDIR /app
+
+# Copy workspace manifests
+COPY package.json package-lock.json ./
+COPY shared/package.json ./shared/
+COPY backend/package.json ./backend/
+
+# Install all workspace deps (handles native builds for sharp/argon2 in the image)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    make \
+    g++ \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/* \
+    && npm ci --no-audit --no-fund
+
+# Copy source
+COPY shared ./shared
+COPY backend ./backend
+
+WORKDIR /app/backend
+
+RUN mkdir -p /opt/uploads
+
+EXPOSE 8000
+
+CMD ["sh", "-c", "npm run db:migrate && npm run start"]

@@ -1,0 +1,28 @@
+FROM node:24-slim
+
+WORKDIR /app
+
+# Copy workspace manifests first for better layer caching
+COPY package.json package-lock.json ./
+COPY shared/package.json ./shared/
+COPY backend/package.json ./backend/
+COPY frontend/package.json ./frontend/
+
+# Install workspace dependencies (shared + backend; frontend deps already available via dev container)
+RUN npm install --no-audit --no-fund --workspace=@eggplant/shared --workspace=@eggplant/backend
+
+# Copy source
+COPY shared ./shared
+COPY backend ./backend
+
+# Native module build deps (sharp, argon2)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libatlas-base-dev \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app/backend
+
+EXPOSE 8000
+
+CMD ["sh", "-c", "npm run db:migrate && npm run dev"]

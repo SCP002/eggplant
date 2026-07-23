@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Eggplant</string>
+    <string name="title_activity_main">Eggplant</string>
+    <string name="package_name">com.eggplant.app</string>
+    <string name="custom_url_scheme">com.eggplant.app</string>
+    <string name="notification_channel_messages_name">Messages</string>
+    <string name="notification_channel_messages_description">Message notifications</string>
+    <string name="notification_channel_calls_name">Calls</string>
+    <string name="notification_channel_calls_description">Incoming call notifications</string>
+    <string name="notification_new_message_title">Eggplant</string>
+    <string name="notification_new_message_text">New message received</string>
+    <string name="notification_invitation_title">Room Invitation</string>
+    <string name="notification_invitation_invited">%1$s invited you to %2$s</string>
+    <string name="notification_attachment_count">%1$d attachment(s)</string>
+    <string name="notification_incoming_call_title">Incoming call</string>
+    <string name="notification_incoming_call_text">Incoming voice call</string>
+    <string name="notification_incoming_call_from">%1$s is calling</string>
+    <string name="notification_channel_ongoing_call_name">Ongoing call</string>
+    <string name="notification_channel_ongoing_call_description">Keeps your voice call running with the screen off</string>
+    <string name="notification_ongoing_call_title">Ongoing call</string>
+    <string name="notification_ongoing_call_text">Your voice call is active</string>
+    <string name="dialog_battery_title">Run in background?</string>
+    <string name="dialog_battery_message">Allow to ignore battery optimization so notifications keep arriving?</string>
+    <string name="dialog_autostart_title">Start after boot?</string>
+    <string name="dialog_autostart_message">Allow to start automatically after boot?</string>
+    <string name="dialog_open_settings">Open settings</string>
+    <string name="dialog_not_now">Not now</string>
+</resources>

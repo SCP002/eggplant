@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Eggplant</string>
+    <string name="title_activity_main">Eggplant</string>
+    <string name="package_name">com.eggplant.app</string>
+    <string name="custom_url_scheme">com.eggplant.app</string>
+    <string name="notification_channel_messages_name">الرسائل</string>
+    <string name="notification_channel_messages_description">إشعارات الرسائل</string>
+    <string name="notification_channel_calls_name">المكالمات</string>
+    <string name="notification_channel_calls_description">إشعارات المكالمات الواردة</string>
+    <string name="notification_new_message_title">Eggplant</string>
+    <string name="notification_new_message_text">تم استلام رسالة جديدة</string>
+    <string name="notification_invitation_title">دعوة إلى الغرفة</string>
+    <string name="notification_invitation_invited">%1$s يدعوك إلى %2$s</string>
+    <string name="notification_attachment_count">المرفقات: %1$d</string>
+    <string name="notification_incoming_call_title">مكالمة واردة</string>
+    <string name="notification_incoming_call_text">مكالمة صوتية واردة</string>
+    <string name="notification_incoming_call_from">%1$s يتصل بك</string>
+    <string name="dialog_battery_title">العمل في الخلفية؟</string>
+    <string name="dialog_battery_message">السماح بتجاهل تحسين البطارية لضمان استمرار وصول الإشعارات؟</string>
+    <string name="dialog_autostart_title">البدء بعد إعادة التشغيل؟</string>
+    <string name="dialog_autostart_message">السماح بالبدء تلقائيًا بعد إعادة تشغيل الجهاز؟</string>
+    <string name="dialog_open_settings">فتح الإعدادات</string>
+    <string name="dialog_not_now">ليس الآن</string>
+</resources>

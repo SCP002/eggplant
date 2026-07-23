@@ -1,0 +1,86 @@
+{
+  "version": "2.0.0",
+  "inputs": [
+    {
+      "id": "adminArgs",
+      "type": "promptString",
+      "description": "Create admin: enter username and password (e.g. admin secret)",
+      "default": "admin changeme"
+    }
+  ],
+  "tasks": [
+    {
+      "label": "Run Frontend",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Build Android (debug)",
+      "type": "shell",
+      "command": "./gradlew :app:assembleDebug",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend/android"
+      },
+      "problemMatcher": [],
+      "group": {
+        "kind": "build"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Playwright: Run all tests",
+      "type": "shell",
+      "command": "cd frontend && npx playwright test",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "DB: Create admin",
+      "command": "npm run db:create-admin -- ${input:adminArgs}",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Format: Prettier (project-wide)",
+      "command": "npx prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\" --ignore-path .gitignore",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    }
+  ]
+}

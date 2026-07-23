@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Frontend",
+      "type": "chrome",
+      "request": "launch",
+      "runtimeExecutable": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/frontend/src",
+      "sourceMaps": true,
+      "skipFiles": ["node_modules/**"],
+      "sourceMapPathOverrides": {
+        "vite:///src/*": "${webRoot}/*"
+      }
+    }
+  ]
+}

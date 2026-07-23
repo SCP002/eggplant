@@ -1,0 +1,65 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.prod
+    ports:
+      - '8001:8001'
+    volumes:
+      - uploads:/opt/uploads
+    environment:
+      - ENV=prod
+      - DATABASE_URL=${DATABASE_URL}
+      - PROD_ALLOW_ORIGINS=https://${PROD_DOMAIN}
+      - UPLOADS_DIR=/opt/uploads
+    env_file:
+      - .env
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    image: postgres:17
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file:
+      - .env
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - ./frontend/dist:/srv:ro
+    depends_on:
+      - backend
+      - livekit
+    restart: unless-stopped
+
+  livekit:
+    image: livekit/livekit-server
+    command: --config /etc/livekit.prod.yml
+    environment:
+      - "LIVEKIT_KEYS=${LIVEKIT_API_KEY}: ${LIVEKIT_API_SECRET}"
+    volumes:
+      - ./livekit.prod.yml:/etc/livekit.prod.yml:ro
+    ports:
+      - '7880:7880'
+      - '7881:7881'
+      - '50000-50099:50000-50099/udp'
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  uploads:
+  caddy_data:

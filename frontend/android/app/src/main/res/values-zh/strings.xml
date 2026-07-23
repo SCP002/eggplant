@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Eggplant</string>
+    <string name="title_activity_main">Eggplant</string>
+    <string name="package_name">com.eggplant.app</string>
+    <string name="custom_url_scheme">com.eggplant.app</string>
+    <string name="notification_channel_messages_name">消息</string>
+    <string name="notification_channel_messages_description">消息通知</string>
+    <string name="notification_channel_calls_name">通话</string>
+    <string name="notification_channel_calls_description">来电通知</string>
+    <string name="notification_new_message_title">Eggplant</string>
+    <string name="notification_new_message_text">收到新消息</string>
+    <string name="notification_invitation_title">房间邀请</string>
+    <string name="notification_invitation_invited">%1$s 邀请您加入 %2$s</string>
+    <string name="notification_attachment_count">附件：%1$d</string>
+    <string name="notification_incoming_call_title">来电</string>
+    <string name="notification_incoming_call_text">语音来电</string>
+    <string name="notification_incoming_call_from">%1$s 正在呼叫您</string>
+    <string name="dialog_battery_title">在后台运行？</string>
+    <string name="dialog_battery_message">允许忽略电池优化，以便持续接收通知？</string>
+    <string name="dialog_autostart_title">开机自启？</string>
+    <string name="dialog_autostart_message">允许设备重启后自动启动？</string>
+    <string name="dialog_open_settings">打开设置</string>
+    <string name="dialog_not_now">暂不</string>
+</resources>

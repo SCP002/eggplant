@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
+    "types": ["node"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@eggplant/shared": ["../shared/src/index.ts"],
+      "@eggplant/shared/api": ["../shared/src/api/index.ts"],
+      "@eggplant/shared/ws": ["../shared/src/ws/index.ts"]
+    }
+  },
+  "include": ["src", "tests", "e2e_server.ts", "drizzle.config.ts"]
+}
